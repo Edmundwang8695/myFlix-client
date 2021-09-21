@@ -22908,9 +22908,9 @@ class MainView extends _reactDefault.default.Component {
         };
     }
     componentDidMount() {
-        _axiosDefault.default.get('https://edmund-movie-api.herokuapp.com/').then((Response1)=>{
+        _axiosDefault.default.get('https://edmund-movie-api.herokuapp.com/').then((response)=>{
             this.setState({
-                movies: Response1.data
+                movies: response.data
             });
         }).catch((error)=>{
             console.log(error);
