@@ -1,0 +1,26 @@
+body {
+  box-sizing: border-box;
+  align-self: center;
+}
+
+form {
+  display: block;
+  width: auto;
+  align-content: center;
+  margin: auto;
+  margin-top: 15%;
+  padding: 50px;
+  background-color: rgb(175, 198, 218);
+  border-radius: 80px;
+}
+
+label,
+.registerbutton {
+  display: block;
+  align-self: center;
+  width: 300px;
+  padding: 5px;
+  border-radius: 50px;
+  background-color: thistle;
+  margin: auto;
+}

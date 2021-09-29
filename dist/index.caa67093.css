@@ -1,4 +1,71 @@
 .my-flix {
-  color: steelblue;
+  color: #498dc5;
+}
+.movie-card {
+  display: block;
+  height: auto;
+  width: auto;
+  padding: 10px;
+  margin: 10px;
+  background-color: tomato;
+  cursor: pointer;
+  transform-style: flat;
+}
+
+.card-img {
+  height: 400px;
+  width: 250px;
+  overflow: hidden;
+}
+body {
+  box-sizing: border-box;
+  align-self: auto;
+}
+
+form {
+  display: block;
+  width: auto;
+  align-content: center;
+  margin-top: 15%;
+  padding: 50px;
+  background-color: #afc6da;
+  border-radius: 80px;
+}
+
+label,
+.loginButton {
+  display: block;
+  align-self: center;
+  width: 300px;
+  padding: 5px;
+  border-radius: 50px;
+  background-color: thistle;
+  margin: auto;
+}
+body {
+  box-sizing: border-box;
+  align-self: center;
+}
+
+form {
+  display: block;
+  width: auto;
+  align-content: center;
+  margin: auto;
+  margin-top: 15%;
+  padding: 50px;
+  background-color: #afc6da;
+  border-radius: 80px;
+}
+
+label,
+.registerbutton {
+  display: block;
+  align-self: center;
+  width: 300px;
+  padding: 5px;
+  border-radius: 50px;
+  background-color: thistle;
+  margin: auto;
 }
 /*# sourceMappingURL=index.caa67093.css.map */

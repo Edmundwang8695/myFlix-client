@@ -1,12 +1,13 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 export class MovieView extends React.Component{
 
-    componentDidMount(){
-        document.addEventListener('keypress',event=>{
-            console.log(event.key);
-        });
-    }
+    // componentDidMount(){
+    //     document.addEventListener('keypress',event=>{
+    //         console.log(event.key);
+    //     });
+    // }
     render(){
         const {movie , onBackClick } = this.props;
 
@@ -32,3 +33,10 @@ export class MovieView extends React.Component{
         );
     }
 }
+MovieView.propTypes = {
+    movie: PropTypes.shape({
+      Title: PropTypes.string.isRequired,
+      Description: PropTypes.string.isRequired,
+      ImagePath: PropTypes.string.isRequired
+    }).isRequired
+  };
