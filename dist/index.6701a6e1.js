@@ -23024,9 +23024,9 @@ var _propTypesDefault = parcelHelpers.interopDefault(_propTypes);
 var _movieCardScss = require("./movie-card.scss");
 class MovieCard extends _reactDefault.default.Component {
     render() {
-        const { movie , onMovieClick  } = this.props;
+        const { movieData , onMovieClick  } = this.props;
         return(/*#__PURE__*/ _jsxRuntime.jsx("div", {
-            onClick: ()=>onMovieClick(movie)
+            onClick: ()=>onMovieClick(movieData)
             ,
             className: "movie-card",
             __source: {
@@ -23034,7 +23034,7 @@ class MovieCard extends _reactDefault.default.Component {
                 lineNumber: 11
             },
             __self: this,
-            children: movie.Title
+            children: movieData.Title
         }));
     }
 }
@@ -23044,7 +23044,8 @@ MovieCard.propTypes = {
         Title: _propTypesDefault.default.string.isRequired,
         Description: _propTypesDefault.default.string.isRequired,
         Director: _propTypesDefault.default.string.isRequired
-    }).isRequired
+    }).isRequired,
+    onMovieClick: _propTypesDefault.default.func.isRequired
 };
 
   $parcel$ReactRefreshHelpers$4249.postlude(module);
@@ -23862,7 +23863,7 @@ class MovieView extends _reactDefault.default.Component {
                                 lineNumber: 29
                             },
                             __self: this,
-                            children: movie.Director
+                            children: movie.Director.Name
                         })
                     ]
                 }),

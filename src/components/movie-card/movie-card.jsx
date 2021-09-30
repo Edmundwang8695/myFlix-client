@@ -5,10 +5,10 @@ import "./movie-card.scss";
 
 export class MovieCard extends React.Component {
   render() {
-    const { movie, onMovieClick } = this.props;
+    const { movieData, onMovieClick } = this.props;
 
     return (
-      <div onClick={() => onMovieClick(movie)} className="movie-card">{movie.Title}</div>
+      <div onClick={() => onMovieClick(movieData)} className="movie-card">{movieData.Title}</div>
     );
   }
 }
@@ -20,5 +20,5 @@ MovieCard.propTypes = {
     Description: PropTypes.string.isRequired,
     Director: PropTypes.string.isRequired,
   }).isRequired,
-  // onMovieClick: PropTypes.func.isRequired
+  onMovieClick: PropTypes.func.isRequired
 };
