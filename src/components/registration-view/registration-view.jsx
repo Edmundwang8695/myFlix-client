@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 
 import "./registration-view.scss";
+import Row from "react-bootstrap/esm/Row";
+import Col from 'react-bootstrap/Col';
 
 export function RegistrationView(props){
     const [username, setUserName] = useState("");
@@ -16,6 +18,8 @@ export function RegistrationView(props){
     };
 
     return (
+        <Row className="justify-content-md-center">
+            <Col lg={3}>
         <form>
             <label className="username">
                 Username: 
@@ -34,6 +38,8 @@ export function RegistrationView(props){
                 Register
             </button>
         </form>
+        </Col>
+        </Row>
     );
 }
 

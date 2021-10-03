@@ -1,8 +1,8 @@
 
 import React, {useState} from "react";
 import PropTypes from "prop-types";
-
-import "./login-view.scss";
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 export function LoginView(props){
     const [username, setUsername]= useState('');
@@ -18,7 +18,9 @@ export function LoginView(props){
       };
 
     return(
+        <Row className="justify-content-md-center">
         <form>
+            <Col md={4}>
             <label>
                 Username:
                 <input type='text' value={username} onChange={e => setUsername(e.target.value)}/>
@@ -28,7 +30,9 @@ export function LoginView(props){
                 <input type='password' value={password} onChange={e => setPassword(e.target.value)}/>
             </label>
             <button className='loginButton' type='submit' onClick={handleSubmit}>Submit</button>
+            </Col>
         </form>
+        </Row>
     );
 }
 LoginView.propTypes = {

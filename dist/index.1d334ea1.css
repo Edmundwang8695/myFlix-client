@@ -1,0 +1,52 @@
+body {
+  box-sizing: border-box;
+  align-self: auto;
+}
+
+form {
+  display: block;
+  width: auto;
+  align-content: center;
+  margin-top: 15%;
+  padding: 50px;
+  background-color: #afc6da;
+  border-radius: 80px;
+}
+
+label,
+.loginButton {
+  display: block;
+  align-self: center;
+  width: 300px;
+  padding: 5px;
+  border-radius: 50px;
+  background-color: thistle;
+  margin: auto;
+}
+body {
+  box-sizing: border-box;
+  align-self: center;
+}
+
+form {
+  display: block;
+  width: auto;
+  align-content: center;
+  margin: auto;
+  margin-top: 15%;
+  padding: 50px;
+  background-color: #afc6da;
+  border-radius: 80px;
+}
+
+label,
+.registerbutton {
+  display: block;
+  align-self: center;
+  width: 300px;
+  padding: 5px;
+  border-radius: 50px;
+  background-color: thistle;
+  margin: auto;
+}
+/*# sourceMappingURL=index.1d334ea1.css.map */
