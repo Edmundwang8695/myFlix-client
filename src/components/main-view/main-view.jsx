@@ -1,6 +1,8 @@
 import React from "react";
 import axios from "axios";
 
+import { BrowserRouter as Router, Route } from "react-router-dom";
+
 import { LoginView } from "../login-view/login-view";
 import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
@@ -20,17 +22,15 @@ export class MainView extends React.Component{
           };
         }
 
-        componentDidMount(){
-          axios.get('https://edmund-movie-api.herokuapp.com/movies')
-          .then((response) => {
+        componentDidMount() {
+          let accessToken = localStorage.getItem('token');
+          if (accessToken !== null) {
             this.setState({
-              movies: response.data,
+              user: localStorage.getItem('user')
             });
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-      }
+            this.getMovies(accessToken);
+          }
+        }
 
         /*When a movie is clicked, this function is invoked and updates the state of the `selectedMovie` *property to that movie*/
         setSelectedMovie(movie) {
@@ -45,62 +45,91 @@ export class MainView extends React.Component{
           });
         }
           /* When a user successfully logs in, this function updates the `user` property in state to that *particular user*/
-          onLoggedIn(user) {
-            this.setState({
-              user,
+          onLoggedIn(authData) {
+            console.log(authData);
+            this.state({
+              user:authData.user.Username
+            });
+
+            localStorage.setItem('token',authData.token);
+            localStorage.setItem('user',authData.user.Username);
+            this.getMovies(authData.token);
+          }
+
+          getMovies(token){
+            axios.get('https://edmund-movie-api.herokuapp.com/movies',{
+              headers: { Authorization: `Bearer ${token}`}
+            })
+            .then(response =>{
+              //assign result to state
+              this.setState({
+                movies:response.data
+              });
+            })
+            .catch(function (error){
+              console.log(error);
             });
           }
-
-            render() {
-              const { movies, selectedMovie, user, register } = this.state;
-
-              /* If there is not registered user, the RegisterView is rendered. If there is a user registered,
-               the user details are *passed as a prop to the LoginView*/
-              if (!register)
-                return (
-                  <RegistrationView
-                    onRegistration={(register) => this.onRegistration(register)} />);
           
-              /* If there is no user, the LoginView is rendered. If there is a user logged in,
-               the user details are *passed as a prop to the LoginView*/
-              if (!user)
-                return <LoginView onLoggedIn={(user) => this.onLoggedIn(user)} />;
-          
-              // Before the movies have been loaded
+            //  Get user data from DB
+  getUsers(token) {
+    axios.post('https://edmund-movie-api.herokuapp.com/users', {
+      headers: { Authorization: `Bearer ${token}` }
+    })
+      .then(response => {
+        // Assign the result to the state
+        this.setState({
+          users: response.data
+        });
+        console.log(response)
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+  onLoggedOut() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    this.setState({
+      user: null
+    });
+  }
+
+  render() {
+    const { movies, user } = this.state;
+
+    if (!user) return <Row>
+      <Col>
+        <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
+      </Col>
+    </Row>
+    if (movies.length === 0) return <div className="main-view" />;
+
+    return (
+      <Router>
+        <Row className="main-view justify-content-md-center">
+          <Route exact path="/" render={() => {
+            return movies.map(m => (
+              <Col md={3} key={m._id}>
+                <MovieCard movie={m} />
+              </Col>
+            ))
+          }} />
+          <Route path="/movies/:movieId" render={({ match }) => {
+            return <Col md={8}>
+              <MovieView movie={movies.find(m => m._id === match.params.movieId)} />
+            </Col>
+          }} />
+          <Route path="/directors/:name" render={({ match }) => {
               if (movies.length === 0) return <div className="main-view" />;
-          
-              return (
-                <Row className="justify-content-md-center">
-                  {
-                    /*If the state of `selectedMovie` is not null, that selected movie 
-                    will be returned otherwise, all *movies will be returned*/
-                    selectedMovie ? (
-                      
-                        <Col md={8}>
-                      <MovieView
-                        movieData={selectedMovie}
-                        onBackClick={(newSelectedMovie) => {
-                          this.setSelectedMovie(newSelectedMovie);
-                        }}
-                      />
-                        </Col>
-                    ) : (
-                      <Row>
-                      {movies.map((movie) => (
-                        <Col md={3}>
-                        <MovieCard
-                          key={movie._id}
-                          movieData={movie}
-                          onMovieClick={(newSelectedMovie) => {
-                            this.setSelectedMovie(newSelectedMovie);
-                          }}
-                        />
-                        </Col>
-                      ))}
-                      </Row>
-                    )
-                  }
-                </Row>
-              );
-            }
-          }
+              return <Col md={8}>
+               <DirectorView director={movies.find(m => m.Director.Name === match.params.name).Director} />
+            </Col>
+             }
+          } />
+
+        </Row>
+      </Router>
+    );
+  }
+}

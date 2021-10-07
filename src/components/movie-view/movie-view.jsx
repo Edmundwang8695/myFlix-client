@@ -9,24 +9,24 @@ export class MovieView extends React.Component{
         });
     }
     render(){
-        const {movie , onBackClick } = this.props;
+        const {movieData , onBackClick } = this.props;
 
         return (
             <div className="movie-view">
                 <div className="movie-poster">
-                    <img src={movie.ImagePath} />
+                    <img src={movieData.ImagePath} />
                 </div>
                 <div className="movie-title">
                     <span className="lable">Title: </span>
-                    <span className="value"> {movie.Title}</span>
+                    <span className="value"> {movieData.Title}</span>
                 </div>
                 <div className="movie-description">
                     <span className="lable">Description: </span>
-                    <span className="value">{movie.Description}</span>
+                    <span className="value">{movieData.Description}</span>
                 </div>
                 <div className="director">
                     <span className="lable">Director: </span>
-                    <span className="value">{movie.Director.Name}</span>
+                    <span className="value">{movieData.Director.Name}</span>
                 </div>
                 <button onClick={() => { onBackClick(null); }}>Back</button>
             </div>
