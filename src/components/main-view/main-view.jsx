@@ -9,6 +9,7 @@ import { MovieView } from "../movie-view/movie-view";
 import { RegistrationView } from "../registration-view/registration-view";
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 
 export class MainView extends React.Component{
   //to have a default state.
@@ -108,7 +109,11 @@ export class MainView extends React.Component{
     return (
       <Router>
         <Row className="main-view justify-content-md-center">
-          <Route exact path="/" render={() => {
+        <Route exact path="/" render={() => {
+            if (!user) return <Col>
+              <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
+            </Col>
+            if (movies.length === 0) return <div className="main-view" />;
             return movies.map(m => (
               <Col md={3} key={m._id}>
                 <MovieCard movie={m} />
@@ -127,7 +132,34 @@ export class MainView extends React.Component{
             </Col>
              }
           } />
+          <Route exact path="/" render={() => {
+              if (!user) return <Col>
+               <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
+           </Col>
+              return movies.map(m => (
+                <Col md={3} key={m._id}>
+                 <MovieCard movie={m} />
+              </Col>
+               ))
+              }} />
 
+         <Route path="/register" render={() => {
+           if (user) return <Redirect to="/" />
+             return <Col>
+           <RegistrationView />
+            </Col>
+            }} />
+          
+          <Route path="/genres/:name" render={({ match, history }) => {
+            if (!user) return <Col>
+              <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
+            </Col>
+            if (movies.length === 0) return <div className="main-view" />;
+            return <Col md={8}>
+              <GenreView genre={movies.find(m => m.Genre.Name === match.params.name).Genre} onBackClick={() => history.goBack()} />
+            </Col>
+          }
+          } />
         </Row>
       </Router>
     );

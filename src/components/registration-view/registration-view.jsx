@@ -12,9 +12,20 @@ export function RegistrationView(props){
     const [birthdate, setBirthdate] =useState("");
 
     const handleSubmit=(e) =>{
-        e.preventDefault();
-        console.log(username, password, email, birthdate);
-        props.onRegistration(username)
+        axios.post('https://edmund-movie-api.herokuapp.com/users', {
+            Username: username,
+            Password: password,
+            Email: email,
+            Birthdate: birthdate
+          })
+          .then(response => {
+            const data = response.data;
+            console.log(data);
+            window.open('/', '_self'); // the second argument '_self' is necessary so that the page will open in the current tab
+          })
+          .catch(e => {
+            console.log('error registering the user')
+          });
     };
 
     return (
