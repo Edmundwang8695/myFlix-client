@@ -22944,7 +22944,7 @@ class MainView extends _reactDefault.default.Component {
     }
     /* When a user successfully logs in, this function updates the `user` property in state to that *particular user*/ onLoggedIn(authData) {
         console.log(authData);
-        this.state({
+        this.setState({
             user: authData.user.Username
         });
         localStorage.setItem('token', authData.token);
@@ -23050,7 +23050,7 @@ class MainView extends _reactDefault.default.Component {
                             return movies.map((m)=>/*#__PURE__*/ _jsxRuntime.jsx(_colDefault.default, {
                                     md: 3,
                                     children: /*#__PURE__*/ _jsxRuntime.jsx(_movieCard.MovieCard, {
-                                        movie: m
+                                        movieData: m
                                     })
                                 }, m._id)
                             );
@@ -23067,7 +23067,7 @@ class MainView extends _reactDefault.default.Component {
                             return(/*#__PURE__*/ _jsxRuntime.jsx(_colDefault.default, {
                                 md: 8,
                                 children: /*#__PURE__*/ _jsxRuntime.jsx(_movieView.MovieView, {
-                                    movie: movies.find((m)=>m._id === match.params.movieId
+                                    movieData: movies.find((m)=>m._id === match.params.movieId
                                     )
                                 })
                             }));
@@ -23088,7 +23088,7 @@ class MainView extends _reactDefault.default.Component {
                                 md: 8,
                                 children: /*#__PURE__*/ _jsxRuntime.jsx(DirectorView, {
                                     director: movies.find((m)=>m.Director.Name === match.params.name
-                                    ).Director
+                                    ).Director.Name
                                 })
                             }));
                         },
@@ -23110,7 +23110,7 @@ class MainView extends _reactDefault.default.Component {
                             return movies.map((m)=>/*#__PURE__*/ _jsxRuntime.jsx(_colDefault.default, {
                                     md: 3,
                                     children: /*#__PURE__*/ _jsxRuntime.jsx(_movieCard.MovieCard, {
-                                        movie: m
+                                        movieData: m
                                     })
                                 }, m._id)
                             );
@@ -23185,7 +23185,16 @@ try {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "MovieCard", ()=>MovieCard
-);
+) // MovieCard.propTypes = {
+ //   movieData: PropTypes.shape({
+ //     ImagePath: PropTypes.string.isRequired,
+ //     Title: PropTypes.string.isRequired,
+ //     Description: PropTypes.string.isRequired,
+ //     Director: PropTypes.string.isRequired,
+ //   }).isRequired,
+ //   onMovieClick: PropTypes.func.isRequired
+ // };
+;
 var _jsxRuntime = require("react/jsx-runtime");
 var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
@@ -23197,7 +23206,7 @@ var _card = require("react-bootstrap/Card");
 var _cardDefault = parcelHelpers.interopDefault(_card);
 class MovieCard extends _reactDefault.default.Component {
     render() {
-        const { movieData , onMovieClick  } = this.props;
+        const { movie , onMovieClick  } = this.props;
         return(/*#__PURE__*/ _jsxRuntime.jsxs(_cardDefault.default, {
             __source: {
                 fileName: "src/components/movie-card/movie-card.jsx",
@@ -23207,7 +23216,7 @@ class MovieCard extends _reactDefault.default.Component {
             children: [
                 /*#__PURE__*/ _jsxRuntime.jsx(_cardDefault.default.Img, {
                     variant: "top",
-                    src: movieData.ImagePath,
+                    src: movie.ImagePath,
                     __source: {
                         fileName: "src/components/movie-card/movie-card.jsx",
                         lineNumber: 12
@@ -23227,7 +23236,7 @@ class MovieCard extends _reactDefault.default.Component {
                                 lineNumber: 14
                             },
                             __self: this,
-                            children: movieData.Title
+                            children: movie.Title
                         }),
                         /*#__PURE__*/ _jsxRuntime.jsxs(_cardDefault.default.Text, {
                             __source: {
@@ -23236,12 +23245,12 @@ class MovieCard extends _reactDefault.default.Component {
                             },
                             __self: this,
                             children: [
-                                movieData.Description,
+                                movie.Description,
                                 " "
                             ]
                         }),
                         /*#__PURE__*/ _jsxRuntime.jsx(_buttonDefault.default, {
-                            onClick: ()=>onMovieClick(movieData)
+                            onClick: ()=>onMovieClick(movie)
                             ,
                             variant: "link",
                             __source: {
@@ -23257,15 +23266,6 @@ class MovieCard extends _reactDefault.default.Component {
         }));
     }
 }
-MovieCard.propTypes = {
-    movieData: _propTypesDefault.default.shape({
-        ImagePath: _propTypesDefault.default.string.isRequired,
-        Title: _propTypesDefault.default.string.isRequired,
-        Description: _propTypesDefault.default.string.isRequired,
-        Director: _propTypesDefault.default.string.isRequired
-    }).isRequired,
-    onMovieClick: _propTypesDefault.default.func.isRequired
-};
 
   $parcel$ReactRefreshHelpers$4249.postlude(module);
 } finally {

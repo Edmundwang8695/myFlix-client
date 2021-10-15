@@ -48,7 +48,7 @@ export class MainView extends React.Component{
           /* When a user successfully logs in, this function updates the `user` property in state to that *particular user*/
           onLoggedIn(authData) {
             console.log(authData);
-            this.state({
+            this.setState({
               user:authData.user.Username
             });
 
@@ -116,19 +116,19 @@ export class MainView extends React.Component{
             if (movies.length === 0) return <div className="main-view" />;
             return movies.map(m => (
               <Col md={3} key={m._id}>
-                <MovieCard movie={m} />
+                <MovieCard movieData={m} />
               </Col>
             ))
           }} />
           <Route path="/movies/:movieId" render={({ match }) => {
             return <Col md={8}>
-              <MovieView movie={movies.find(m => m._id === match.params.movieId)} />
+              <MovieView movieData={movies.find(m => m._id === match.params.movieId)} />
             </Col>
           }} />
           <Route path="/directors/:name" render={({ match }) => {
               if (movies.length === 0) return <div className="main-view" />;
               return <Col md={8}>
-               <DirectorView director={movies.find(m => m.Director.Name === match.params.name).Director} />
+               <DirectorView director={movies.find(m => m.Director.Name === match.params.name).Director.Name} />
             </Col>
              }
           } />
@@ -138,7 +138,7 @@ export class MainView extends React.Component{
            </Col>
               return movies.map(m => (
                 <Col md={3} key={m._id}>
-                 <MovieCard movie={m} />
+                 <MovieCard movieData={m} />
               </Col>
                ))
               }} />

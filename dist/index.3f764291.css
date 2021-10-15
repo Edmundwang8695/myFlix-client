@@ -1,0 +1,38 @@
+.movie-card {
+  display: block;
+  height: auto;
+  width: auto;
+  padding: 10px;
+  margin: 10px;
+  background-color: tomato;
+  cursor: pointer;
+  transform-style: flat;
+}
+
+.card-img {
+  height: 400px;
+  width: 250px;
+  overflow: hidden;
+}
+body {
+  box-sizing: border-box;
+}
+
+form {
+  width: auto;
+  margin-top: 15%;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+label,
+.registerbutton {
+  display: block;
+  align-self: center;
+  width: 300px;
+  padding: 5px;
+  border-radius: 50px;
+  background-color: thistle;
+  margin: auto;
+}
+/*# sourceMappingURL=index.3f764291.css.map */
