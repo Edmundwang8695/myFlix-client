@@ -10,6 +10,7 @@ import { RegistrationView } from "../registration-view/registration-view";
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
+import { ProfileView } from "../profile-view/profile-view";
 
 export class MainView extends React.Component{
   //to have a default state.
@@ -128,7 +129,7 @@ export class MainView extends React.Component{
           <Route path="/directors/:name" render={({ match }) => {
               if (movies.length === 0) return <div className="main-view" />;
               return <Col md={8}>
-               <DirectorView director={movies.find(m => m.Director.Name === match.params.name).Director.Name} />
+               <DirectorView director={movies.find(m => m.Director.Name === match.params.name).Director} />
             </Col>
              }
           } />
@@ -149,7 +150,13 @@ export class MainView extends React.Component{
            <RegistrationView />
             </Col>
             }} />
-          
+            
+           <Route path="/profile" render={() => {
+            if (!user) return <Col>
+              <ProfileView />
+            </Col>
+          }} />
+
           <Route path="/genres/:name" render={({ match, history }) => {
             if (!user) return <Col>
               <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
