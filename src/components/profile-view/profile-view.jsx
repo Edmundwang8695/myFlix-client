@@ -5,7 +5,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { render } from 'react-dom';
 
-export class profileView extends React.Component{
+export class ProfileView extends React.Component{
     constructor(){
         super();
     this.state ={
@@ -24,7 +24,7 @@ componentDidMount(){
 
 getUsers(token) {
     const Username = localStorage.getItem('user');
-    axios.post('https://edmund-movie-api.herokuapp.com/users', {
+    axios.post(`https://edmund-movie-api.herokuapp.com/users/${Username}`, {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then(response => {

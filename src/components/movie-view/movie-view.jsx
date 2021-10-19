@@ -23,7 +23,7 @@ export class MovieView extends React.Component{
             <div className="movie-view-wrapper ml-5 mt-3">
               <Row>
                 <div>
-                  <img variant="top" src={movieData.ImagePath} />
+                  <img src={movieData.ImagePath} />
                 </div>
               </Row>
               <Row>

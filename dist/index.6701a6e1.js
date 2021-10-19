@@ -26806,7 +26806,6 @@ class MovieView extends _reactDefault.default.Component {
                             },
                             __self: this,
                             children: /*#__PURE__*/ _jsxRuntime.jsx("img", {
-                                variant: "top",
                                 src: movieData.ImagePath,
                                 __source: {
                                     fileName: "src/components/movie-view/movie-view.jsx",
@@ -40198,7 +40197,7 @@ $parcel$ReactRefreshHelpers$58c6.prelude(module);
 try {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "profileView", ()=>profileView
+parcelHelpers.export(exports, "ProfileView", ()=>ProfileView
 );
 var _jsxRuntime = require("react/jsx-runtime");
 var _react = require("react");
@@ -40210,7 +40209,7 @@ var _axios = require("axios");
 var _axiosDefault = parcelHelpers.interopDefault(_axios);
 var _reactRouterDom = require("react-router-dom");
 var _reactDom = require("react-dom");
-class profileView extends _reactDefault.default.Component {
+class ProfileView extends _reactDefault.default.Component {
     constructor(){
         super();
         this.state = {
@@ -40227,7 +40226,7 @@ class profileView extends _reactDefault.default.Component {
     }
     getUsers(token) {
         const Username = localStorage.getItem('user');
-        _axiosDefault.default.post('https://edmund-movie-api.herokuapp.com/users', {
+        _axiosDefault.default.post(`https://edmund-movie-api.herokuapp.com/users/${Username}`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
