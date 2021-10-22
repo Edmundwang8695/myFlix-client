@@ -1,13 +1,15 @@
 import React from "react";
-import {Row, Col, Button, Container, Card } from 'react-bootstrap';
+import {Row, Col, Button, Container, } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import axios from "axios";
+import { Card } from "react-bootstrap";
 
 export class MovieView extends React.Component{
 
   handleAdd() {
     const token = localStorage.getItem("token");
     const Username = localStorage.getItem("user");
-    axios.post(`https://edmund-movie-api.herokuapp.com/users/${Username}/movies/${this.props.movie._id}`, {},
+    axios.post(`https://edmund-movie-api.herokuapp.com/users/${Username}/movies/${movie._Id}`, {},
       { headers: { Authorization: `Bearer ${token}` } }
     )
       .then((response) => {
@@ -16,42 +18,35 @@ export class MovieView extends React.Component{
       })
   }
     render(){
-        const {movieData , onBackClick } = this.props;
+        const { onBackClick, movieData } = this.props;
 
         return (
-            <>
+            <Container>
             <div className="movie-view-wrapper ml-5 mt-3">
               <Row>
-                <div>
-                  <img src={movieData.ImagePath} />
-                </div>
+                <Card>
+                  <img className="img-fluid" alt="Responsive image" src={movieData.ImagePath} />
+                </Card>
               </Row>
               <Row>
-                <span className="meta-text">Genre: <Link to={`/genre/${movieData.Genre.Name}`}>{movieData.Genre.Name}</Link></span>
+                <span className="meta-text">Genre: <Link to={`/genres/${movieData.Genre.Name}`}>{movieData.Genre.Name}</Link></span>
               </Row>
               <Row>
-                <span className="meta-text">Directed by: <Link to={`/directors/${movieData.director.name}`}>{movieData.director.name}</Link></span>
+                <span className="meta-text">Directed by: <Link to={`/directors/${movieData.Director.Name}`}>{movieData.Director.Name}</Link></span>
               </Row>
-              <Row  className="text-white">
-                <h1>{movieData.Title}</h1>
+              <Row  className="text-black">
+                <h1>{movieData.Title}</h1> 
                 <p className="movie-description">{movieData.Description}</p>
-                <div className="back-btn">
-                  <Button className="lg" variant="primary" onClick={() => {onBackClick(null);}}>Back to Movies</Button>
+                
+                <div className="back-btn"> 
+                  <Button block type="button" variant="warning" onClick={() => {onBackClick(null);}}>Back</Button>
                 </div>
                 <div className="favorite-buttons">
-                  <Link to={`/movies/${movieData.Title}`}>
-                    <Button block type="button" variant="success" onClick={() => this.handleAdd(movie)}>Add to favorites</Button>
-                  </Link>
-                  <ToastContainer />
-                </div>
-                <div className="favorite-buttons">
-                  <Link to={`/movies/${movieData.Title}`}>
-                    <Button block type="button" variant="danger" onClick={() => this.handleRemove(movie)}>Remove from favorites</Button>
-                  </Link>
+                    <Button block type="button" variant="success" onClick={() => this.handleAdd(movieData)}>Add to favorites</Button>
                 </div>
               </Row>
             </div>
-          </>
+          </Container>
         );
       }
     }
