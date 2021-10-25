@@ -16,23 +16,6 @@ export function ProfileView({ movies, onUpdatedUserInfo }) {
   const favoriteMovieList = movies.filter((movies) => {});
 
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   // console.log(Username, Password);
-  //   // send a request to the server for authentication
-  //   axios.post("https://edmund-movie-api.herokuapp.com/login", {
-  //       Username: Username,
-  //       Password: password,
-  //     })
-  //     .then((response) => {
-  //       const data = response.data;
-  //       props.onLoggedIn(data);
-  //     })
-  //     .catch((e) => {
-  //       console.log("no such user");
-  //     });
-  // };
-
 
   const handleUpdate = (e) => {};
 
@@ -58,7 +41,6 @@ export function ProfileView({ movies, onUpdatedUserInfo }) {
           </Card>
         </Col>
       </Row>
-
       <FavoriteMovies favoriteMovieList={favoriteMovieList} />
     </Container>
   );

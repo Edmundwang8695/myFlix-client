@@ -6,7 +6,7 @@ import { Card } from "react-bootstrap";
 
 export class MovieView extends React.Component{
 
-  handleAdd() {
+  handleAdd(movie) {
     const token = localStorage.getItem("token");
     const Username = localStorage.getItem("user");
     axios.post(`https://edmund-movie-api.herokuapp.com/users/${Username}/movies/${movie._Id}`, {},
@@ -14,7 +14,7 @@ export class MovieView extends React.Component{
     )
       .then((response) => {
         console.log(response);
-        alert(this.props.movie.Title + " has been added to your favorites!");
+        alert(movie.Title + " has been added to your favorites!");
       })
   }
     render(){

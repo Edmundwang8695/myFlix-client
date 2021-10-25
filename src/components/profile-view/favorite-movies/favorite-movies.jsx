@@ -14,13 +14,13 @@ function FavoriteMovies({ favoriteMovieList }) {
           </Col>
         </Row>
         <Row>
-          {favoriteMovieList.map(({ ImagePath, Title, _id }) => {
+          {favoriteMovieList.map(({movie}) => {
             return (
               <Col xs={12} md={6} lg={3} key={_id} className="fav-movie">
+                  <img  src={movie.ImagePath} />
                 <Figure>
                   <Link to={`/movies/${movie._id}`}>
-                      <img  src={movie.ImagePath} />
-                    <Figure.Caption>{Title}</Figure.Caption>
+                    <h4>{movie.Title}</h4>
                   </Link>
                 </Figure>
 
