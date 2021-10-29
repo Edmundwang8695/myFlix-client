@@ -9,10 +9,10 @@ export class NavigationBar extends React.Component{
  };
 
 render(){
-    const {user}= this.props;
+    const { user }= this.props;
     const movies = `/`
     const profile = `/users/${user}`;
-
+    
     return (
         <Container>
             <Navbar collapseOnSelect fix="top">
@@ -40,4 +40,3 @@ render(){
     );
 }
 }
-

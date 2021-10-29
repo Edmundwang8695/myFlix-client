@@ -1,8 +1,6 @@
 import React from "react";
 import axios from "axios";
 
-import { BrowserRouter as Router, Route } from "react-router-dom";
-
 import { LoginView } from "../login-view/login-view";
 import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
@@ -15,7 +13,6 @@ import { DirectorView } from "../director-view/director-view";
 import { GenreView } from "../genre-view/genre-view";
 import { NavigationBar } from "../navigation-bar/navigation-bar";
 import FavoriteMovies from "../profile-view/favorite-movies/favorite-movies";
-
 export class MainView extends React.Component{
   //to have a default state.
         constructor(){
@@ -56,15 +53,13 @@ export class MainView extends React.Component{
           onLoggedIn(authData) {
             console.log(authData);
             this.setState({
-              user:authData.user.Username,
+              user:authData.user,
             });
-
             localStorage.setItem('token',authData.token);
             localStorage.setItem('user',authData.user.Username);
 
             this.getMovies(authData.token);
           }
-
           getMovies(token){
             axios.get('https://edmund-movie-api.herokuapp.com/movies',{
               headers: { Authorization: `Bearer ${token}`}
@@ -81,21 +76,21 @@ export class MainView extends React.Component{
           }
           
             //  Get user data from DB
-  getUsers(token) {
-    axios.post('https://edmund-movie-api.herokuapp.com/users', {
-      headers: { Authorization: `Bearer ${token}` }
-    })
-      .then(response => {
-        // Assign the result to the state
-        this.setState({
-          users: response.data
-        });
-        console.log(response)
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  }
+  // getUsers(token) {
+  //   axios.post('https://edmund-movie-api.herokuapp.com/users', {
+  //     headers: { Authorization: `Bearer ${token}` }
+  //   })
+  //     .then(response => {
+  //       // Assign the result to the state
+  //       this.setState({
+  //         users: response.data
+  //       });
+  //       console.log(response)
+  //     })
+  //     .catch(function (error) {
+  //       console.log(error);
+  //     });
+  // }
   onLoggedOut() {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
@@ -106,7 +101,7 @@ export class MainView extends React.Component{
 
   render() {
     const { movies, user, navigation } = this.state;
-
+    console.log(user)
     if (!user) return <Row>
       <Col>
         <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
@@ -116,8 +111,8 @@ export class MainView extends React.Component{
 
     return (
       <Router>
-        <NavigationBar navigation={navigation} />
-
+        <NavigationBar navigation={navigation} user={user} />
+​
         <Row className="main-view justify-content-md-center">
           <Route
             exact
@@ -171,7 +166,7 @@ export class MainView extends React.Component{
               </Col>
                ))
               }} />
-
+​
          <Route path="/register" render={() => {
            if (user) return <Redirect to="/" />
              return <Col>
@@ -179,13 +174,13 @@ export class MainView extends React.Component{
             </Col>
             }} />
             
-           {/* <Route path="/profile" render={() => {
+           <Route path="/profile" render={() => {
             if (!user) return <Col>
               <ProfileView />
             </Col>
-          }} /> */}
-
-<Route
+          }} />
+​
+            <Route
             exact
             path="/users/:username"
             render={({ history }) => {
@@ -196,10 +191,14 @@ export class MainView extends React.Component{
                   </Col>
                 );
               if (movies.length === 0) return <div className="main-view" />;
-              return <ProfileView history={history} movies={movies} />;
+              return <ProfileView 
+              history={history} 
+              movies={movies} 
+              user={user} 
+              />;
             }}
           />
-
+​
           <Route path="/genres/:name" render={({ match, history }) => {
             if (!user) return <Col>
               <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
